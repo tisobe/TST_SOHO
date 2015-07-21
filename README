@@ -1,0 +1,45 @@
+Robert Cameron
+May 2003
+
+updated Feb 24, 2014    by t. isobe (tisobe@cfa.harvard.edu)
+
+This directory contains files to predict and plot the solar wind
+environment for Chandra, 4 weeks into the future.
+
+solwin.pl
+    run get_sw.pl   to fetch the latest ACE SWEPAM and SOHO MTOF monthly archive files 
+    run plot_sw.pl  to plot the GSM coords and solar wind data. Output = solwin.gif
+
+
+get_sw.pl:
+    Fetch the monthly ACE SWEPAM and SOHO MTOF files
+
+    input  -    ftp://ftp.swpc.noaa.gov/pub/lists/ace2/*_ace_swepam_1h.txt
+                http://umtof.umd.edu/pm/crn/archive/*
+                http://umtof.umd.edu/pm/pmsw_2week.used
+
+    output -    longterm    --- a directory: see below 
+                swepam      --- Hourly Averaged Real-time Bulk Parameters of the Solar Wind Plasma
+                mtof        --- a copy of http://umtof.umd.edu/pm/pmsw_2week.used
+
+plot_sw.pl:
+    Use monthly ACE SWEPAM and SOHO MTOF files to extrapolate solar wind into the future
+
+    input  -    /data/mta4/proj/rac/ops/SOHO/swepam
+                /data/mta4/proj/rac/ops/SOHO/mtof
+                /data/mta4/proj/rac/ops/ephem/PE.EPH.gsme (via symbolic link)
+
+    output -    solwin.gif
+
+
+
+longterm
+    This is a working ditectory contains copies of http://umtof.umd.edu/pm/crn/archive//CRN_*.USED 
+    copied by get_sw.pl. It also contains copies of *_ace_swepam_1h.txt
+
+    Although this directory contains several perl scripts, they are currently not used. 
+            
+
+cron job
+--------
+36 3 * * *  /data/mta4/proj/rac/ops/SOHO/solwin.pl
